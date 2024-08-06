@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EarliestEstimatedReleaseDate__c</fullName>
+    <formula>PlannedProductionStartDate__c  +  Script__r.ProductionDays__c +  Script__r.PostProductionDays__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Earliest Estimated Release Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>
