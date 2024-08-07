@@ -153,15 +153,15 @@
     <enableSearch>false</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Cast</label>
     <nameField>
-        <displayFormat>ORD-{0000}</displayFormat>
+        <displayFormat>CST-{0000}</displayFormat>
         <label>Cast Name</label>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Casts</pluralLabel>
     <searchLayouts></searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
