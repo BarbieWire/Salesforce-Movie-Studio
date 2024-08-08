@@ -156,7 +156,7 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Movie</label>
     <nameField>
-        <displayFormat>ORD-{0000}</displayFormat>
+        <displayFormat>MOV-{0000}</displayFormat>
         <label>Movie Name</label>
         <type>AutoNumber</type>
     </nameField>
