@@ -156,12 +156,15 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Script</label>
     <nameField>
-        <displayFormat>ORD-{0000}</displayFormat>
+        <displayFormat>SCRT-{0000}</displayFormat>
         <label>Script Name</label>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Scripts</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Genre__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Title__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
