@@ -4,6 +4,7 @@
     <description>Movie description</description>
     <label>Description</label>
     <length>1000</length>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

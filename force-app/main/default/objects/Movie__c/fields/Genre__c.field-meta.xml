@@ -3,6 +3,7 @@
     <fullName>Genre__c</fullName>
     <label>Genre</label>
     <required>true</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

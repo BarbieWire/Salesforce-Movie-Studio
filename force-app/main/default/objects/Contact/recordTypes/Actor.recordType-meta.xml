@@ -116,6 +116,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>RoleTypes__c</picklist>
+        <values>
+            <fullName>Extras %26 Background</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Featured Extra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Star or Lead</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supporting</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Role__c</picklist>
         <values>
             <fullName>Actor</fullName>

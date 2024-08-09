@@ -2,7 +2,6 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BusinessContact</fullName>
     <active>true</active>
-    <description>Actor is not available in Roles picklist</description>
     <label>Business Contact</label>
     <picklistValues>
         <picklist>GenderIdentity</picklist>
@@ -113,6 +112,13 @@
         <values>
             <fullName>They%2FThem</fullName>
             <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RoleTypes__c</picklist>
+        <values>
+            <fullName>Default</fullName>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
