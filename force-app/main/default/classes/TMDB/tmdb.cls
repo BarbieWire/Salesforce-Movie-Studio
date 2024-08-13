@@ -74,30 +74,4 @@ public with sharing class tmdb {
         tmdMovieDetailResponse result = (tmdMovieDetailResponse) JSON.deserialize(response.getBody(), tmdMovieDetailResponse.class);
         return result;
     }
-
-        @future(callout=true)
-        public static void movieDetailResponseFuture(String tmdbId, String movieId) {
-            try {
-                tmdb tmdbClient = new tmdb();
-                tmdMovieDetailResponse result = tmdbClient.movieDetailResponse(tmdbId);
-                
-                Movie__c movie = [SELECT Id, Description__c, Title__c, Revenue__c, 
-                Rating__c, Poster__c, Budget__c
-                FROM Movie__c WHERE Id = :movieId LIMIT 1];
-
-                movie.Description__c = result.overview;
-                movie.Title__c = result.original_title;
-                movie.Revenue__c = result.revenue;
-                movie.Rating__c = result.vote_average;
-                movie.Poster__c = result.poster_path;
-                movie.Budget__c = result.budget;
-
-                // Update the Movie__c record with the new data
-                update movie;
-
-            } catch (Exception e) {
-                System.debug('Error in future method: ' + e.getMessage());
-            }
-        }
-
 }
