@@ -3,7 +3,7 @@ global class TMDBSyncBatch implements Database.Batchable<SObject>, Database.Stat
         return Database.getQueryLocator([
             SELECT Id, tmdbId__c, Revenue__c, Rating__c, TMDBSyncDate__c
             FROM Movie__c
-            WHERE (TMDBSyncDate__c = NULL OR TMDBSyncDate__c >= LAST_N_DAYS:30)
+            WHERE (TMDBSyncDate__c = NULL OR TMDBSyncDate__c <= LAST_N_DAYS:30)
             AND tmdbId__c != NULL
         ]);
     }
