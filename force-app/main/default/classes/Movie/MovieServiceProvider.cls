@@ -8,7 +8,6 @@ public with sharing class MovieServiceProvider {
                   Rating__c, Poster__c, Budget__c
                   FROM Movie__c WHERE Id = :movieId LIMIT 1];
 
-
             tmdb tmdbClient = new tmdb();
             tmdMovieDetailResponse result = tmdbClient.movieDetailResponse(movie.TMDBid__c);
 
@@ -18,6 +17,7 @@ public with sharing class MovieServiceProvider {
             movie.Rating__c = result.vote_average;
             movie.Poster__c = result.poster_path;
             movie.Budget__c = result.budget;
+            movie.TMDBSyncDate__c = Date.today();
 
             moviesToUpdate.add(movie);
         }
