@@ -1,9 +1,8 @@
-public with sharing class tmdbSearchMovieResponse {
+public with sharing class tmdMovieDetailResponse {
     public String overview;
     public String original_title;
     public Integer revenue;
     public Decimal vote_average;
-    public String poster_path;
-    public Integer budget;
+    public string poster_path;
+    public Decimal budget;
 }
-
