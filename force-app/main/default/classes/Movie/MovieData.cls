@@ -13,6 +13,7 @@ public class MovieData {
         public Script script;
         public String release_date;
         public String status;
+        public String poster_path;
     }
 
     public class Script {

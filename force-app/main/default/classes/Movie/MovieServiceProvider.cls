@@ -1,6 +1,7 @@
 public with sharing class MovieServiceProvider {
     @future(callout=true)
     public static void updateMovieRecords(Set<Id> movieIds) {
+        TMDBSettings__c settings = TMDBSettings__c.getOrgDefaults();
         List<Movie__c> moviesToUpdate = new List<Movie__c>();
         
         for (String movieId : movieIds) {
@@ -15,11 +16,17 @@ public with sharing class MovieServiceProvider {
             movie.Title__c = result.original_title;
             movie.Revenue__c = result.revenue;
             movie.Rating__c = result.vote_average;
-            movie.Poster__c = result.poster_path;
+
+            if (settings != null && settings.TMDBBasePosterURL__c != null) {
+                String baseUrl = settings.TMDBBasePosterURL__c;
+\                movie.Poster__c = baseUrl + result.poster_path;
+            }
+            
             movie.Budget__c = result.budget;
             movie.TMDBSyncDate__c = Date.today();
 
             moviesToUpdate.add(movie);
+            
         }
 
         update moviesToUpdate;
@@ -103,6 +110,7 @@ public with sharing class MovieServiceProvider {
         newMovie.rating__c = movieData.rating;
         newMovie.budget__c = movieData.budget;
         newMovie.Revenue__c = movieData.revenue;
+        newMovie.Poster__c = movieData.poster_path;
         newMovie.Description__c = movieData.script != null ? movieData.script.description : null;
 
         // Date conversion with try-catch

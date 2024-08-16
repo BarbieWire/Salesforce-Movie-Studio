@@ -4,11 +4,17 @@ public with sharing class MovieTriggerHandler extends TriggerHandler {
         Set<Id> movieIds = new Set<Id>();
 
         for (Movie__c movie : movies) {
-            if (movie.TMDBid__c != null) movieIds.add(movie.Id);
+            system.debug(movie.TMDBid__c);
+            if (movie.TMDBid__c != null) {
+                movieIds.add(movie.Id);
+            }
         }
 
         try {
-            if (!movieIds.isEmpty()) MovieServiceProvider.updateMovieRecords(movieIds);
+            system.debug(movieIds);
+            if (!movieIds.isEmpty()){
+                 MovieServiceProvider.updateMovieRecords(movieIds);
+            }
         } catch (Exception e) {
             System.debug('Error queuing future method in after insert' + ': ' + e.getMessage());
         }

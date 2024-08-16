@@ -5,4 +5,5 @@ public with sharing class tmdMovieDetailResponse {
     public Decimal vote_average;
     public string poster_path;
     public Decimal budget;
+    public Integer request_success;
 }

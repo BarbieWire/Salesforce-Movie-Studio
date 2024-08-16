@@ -72,6 +72,7 @@ public with sharing class tmdb {
         HttpResponse response = http.send(request);
 
         tmdMovieDetailResponse result = (tmdMovieDetailResponse) JSON.deserialize(response.getBody(), tmdMovieDetailResponse.class);
+        result.request_success = response.getStatusCode();
         return result;
     }
 }

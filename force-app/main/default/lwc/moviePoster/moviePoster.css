@@ -1,0 +1,9 @@
+.poster-image {
+    width: auto;
+    height: 50vh;
+}
+
+.no-poster {
+    text-align: center;
+    padding: 10px;
+}
