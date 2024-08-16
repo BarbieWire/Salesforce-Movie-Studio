@@ -1,6 +1,0 @@
-.custom-layout {
-    display: flex;
-    justify-content: space-between; /* Align items horizontally (space between) */
-    align-items: center; /* Align items vertically */
-    gap: 10px; /* Set gap between layout items */
-}

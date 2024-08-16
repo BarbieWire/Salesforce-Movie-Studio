@@ -1,0 +1,29 @@
+<template>
+    <article class="slds-box">
+        <div class="slds-card__header slds-grid">
+            <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <a href="#" class="slds-card__header-link slds-truncate" title={title}>
+                            <span>{title}</span>
+                        </a>
+                    </h2>
+                    <p class="slds-text-body_small">Rating: {rating}</p>
+                    <p class="slds-text-body_small genre-text">
+                        Genre: {genre}
+                        <template if:true={isHorror}>
+                            <span class="age-restriction"> 18+ </span>
+                        </template>
+                    </p>
+                </div>
+                <div class="slds-no-flex">
+                    <button class="slds-button slds-button_neutral movie-details-button" onclick={handleDetailsClick}>Details</button>
+                </div>
+            </div>
+        </div>
+        <footer class="slds-card__footer">
+            <img src={poster} alt={title}/>
+        </footer>
+    </article>
+</template>
+

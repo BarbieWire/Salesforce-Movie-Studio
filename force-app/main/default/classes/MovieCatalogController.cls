@@ -18,6 +18,6 @@ public with sharing class MovieCatalogController {
 
     @AuraEnabled(cacheable=true)
     public static List<Movie__c> getMoviesByGenre(String genre) {
-        return [SELECT Id, Title__c, Genre__c FROM Movie__c WHERE Genre__c = :genre];
+        return [SELECT Id, Title__c, RatingCalculated__c, Genre__c, Poster__c FROM Movie__c WHERE Genre__c = :genre];
     }
 }

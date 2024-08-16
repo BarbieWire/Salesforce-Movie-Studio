@@ -1,10 +1,11 @@
 <template>
     <lightning-card title="Movie Catalog Filter" icon-name="standard:video">
         <div class="slds-p-around_medium">
-            <lightning-layout vertical-align="end" horizontal-align="space">
+            <lightning-layout vertical-align="end">
                 <lightning-layout-item size="10">
                     <!-- Genre select -->
                     <lightning-combobox
+                        label="Select Genre"
                         name="genre"
                         placeholder="Choose a genre"
                         options={genreOptions}
@@ -13,7 +14,7 @@
                     </lightning-combobox>
                 </lightning-layout-item>
 
-                <lightning-layout-item>
+                <lightning-layout-item margin="left-small">
                      <!-- Filter button -->
                     <lightning-button
                         label="Filter Movies"
@@ -26,11 +27,20 @@
 
             <!-- Display filtered -->
             <template if:true={filteredMovies}>
-                <ul>
+
+                <lightning-layout vertical-align="center" multiple-rows="true">
                     <template for:each={filteredMovies} for:item="movie">
-                        <li key={movie.Id}>{movie.Title__c}</li>
+                        <lightning-layout-item key={movie.Id} size="3">
+                            <c-movie-card
+                                poster={movie.Poster__c}
+                                rating={movie.RatingCalculated__c}
+                                genre={movie.Genre__c}
+                                title={movie.Title__c}>
+                            </c-movie-card>
+                        </lightning-layout-item>
                     </template>
-                </ul>
+                </lightning-layout>
+
             </template>
         </div>
     </lightning-card>
