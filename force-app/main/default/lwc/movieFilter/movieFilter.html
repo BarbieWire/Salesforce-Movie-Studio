@@ -1,0 +1,37 @@
+<template>
+    <lightning-card title="Movie Catalog Filter" icon-name="standard:video">
+        <div class="slds-p-around_medium">
+            <lightning-layout vertical-align="end" horizontal-align="space">
+                <lightning-layout-item size="10">
+                    <!-- Genre select -->
+                    <lightning-combobox
+                        name="genre"
+                        placeholder="Choose a genre"
+                        options={genreOptions}
+                        value={selectedGenre}
+                        onchange={handleGenreChange}>
+                    </lightning-combobox>
+                </lightning-layout-item>
+
+                <lightning-layout-item>
+                     <!-- Filter button -->
+                    <lightning-button
+                        label="Filter Movies"
+                        variant="brand"
+                        class="slds-m-top_medium"
+                        onclick={filterMovies}>
+                    </lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <!-- Display filtered -->
+            <template if:true={filteredMovies}>
+                <ul>
+                    <template for:each={filteredMovies} for:item="movie">
+                        <li key={movie.Id}>{movie.Title__c}</li>
+                    </template>
+                </ul>
+            </template>
+        </div>
+    </lightning-card>
+</template>

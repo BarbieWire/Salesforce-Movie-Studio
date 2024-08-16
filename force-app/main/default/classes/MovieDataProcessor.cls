@@ -15,7 +15,6 @@ public class MovieDataProcessor {
             result.errorMessage = null;
 
             return result;
-
         } catch (Exception e) {
             result.errorMessage = e.getMessage();
         }

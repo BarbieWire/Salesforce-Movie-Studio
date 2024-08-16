@@ -30,7 +30,6 @@ export default class MovieDataUploader extends LightningElement {
         }   
 
         this.isProcessing = true;
-
         for (const id of this.documentIds) {
             processMovieData({ fileId: id })
             .then(result => {
