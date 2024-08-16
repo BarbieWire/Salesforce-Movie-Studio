@@ -6,14 +6,13 @@ const FIELDS = [
 ];
 
 export default class MoviePoster extends LightningElement {
-    @api recordId;  
+    @api recordId;
     posterUrl;
 
     @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
     record({ error, data }) {
         if (data) {
             this.posterUrl = data.fields.Poster__c.value;
-            console.log("here: ", this.posterUrl);
         } else if (error) {
             // Handle error case
             console.error(error);

@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title="Upload File With Movie Data">
+        <div class="slds-p-around_small">
+            <lightning-file-upload
+                label="Upload JSON File"
+                multiple
+                name="fileUploader"
+                accept=".json"
+                onuploadfinished={handleUploadFinished}
+                record-id={recordId}>
+            </lightning-file-upload>
+
+            <template lwc:if={uploadedFileLength}>
+                <p>{uploadedFileLength} Records Loaded To Salesforce</p>
+            </template>
+
+            <div class="slds-m-top_medium">
+                <lightning-button
+                    variant="brand"
+                    label="Process Data"
+                    onclick={handleProcessData}>
+                </lightning-button>
+            </div>
+            <template lwc:if={isProcessing}>
+                <lightning-spinner alternative-text="Processing" size="small"></lightning-spinner>
+            </template>
+        </div>
+    </lightning-card>
+</template>

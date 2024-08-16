@@ -19,20 +19,19 @@ public with sharing class MovieServiceProvider {
 
             if (settings != null && settings.TMDBBasePosterURL__c != null) {
                 String baseUrl = settings.TMDBBasePosterURL__c;
-\                movie.Poster__c = baseUrl + result.poster_path;
+                movie.Poster__c = baseUrl + result.poster_path;
             }
             
             movie.Budget__c = result.budget;
             movie.TMDBSyncDate__c = Date.today();
 
             moviesToUpdate.add(movie);
-            
         }
 
         update moviesToUpdate;
     }
 
-    public void importJSON(String jsonString) {
+    public Integer importJSON(String jsonString) {
         // Disable triggers on import
         TriggerControl.isTriggerDisabled = true;
 
@@ -59,6 +58,7 @@ public with sharing class MovieServiceProvider {
 
             // Insert records
             insertRecords(moviesToInsert, scriptsToInsert, scriptsToUpdate, scriptIdMap, movieScriptIdMap);
+            return moviesToInsert.size();
         } finally {
             // Re-enable triggers
             TriggerControl.isTriggerDisabled = false;
@@ -91,7 +91,6 @@ public with sharing class MovieServiceProvider {
             // Check if the movie already exists by tmdb_id
             if (!existingMoviesMap.containsKey(movieData.tmdb_id)) {
                 Movie__c newMovie = createNewMovie(movieData);
-
                 // Handle script data
                 handleScriptData(movieData, existingScriptsMap, scriptsToInsert, scriptsToUpdate, scriptIdMap);
 
