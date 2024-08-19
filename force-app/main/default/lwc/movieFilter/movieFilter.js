@@ -6,19 +6,31 @@ export default class MovieFilter extends LightningElement {
     @track selectedGenre = '';
     @track filteredMovies = [];
     @track genreOptions = [];
+    
+    @track limitSize = 10; // Default limit size
+    @track limitSizeDisplay = '10';
+    @track offsetSize = 0; // For pagination
+
+    // Default limit options for the user to choose from
+    @track limitOptions = [
+        { label: '10', value: '10' },
+        { label: '20', value: '20' },
+        { label: '50', value: '50' }
+    ];
 
     connectedCallback() {
         this.fetchGenreOptions();
+        this.fetchMovies();
     }
 
     // Fetch genre picklist values from Apex
     fetchGenreOptions() {
         getGenrePicklistValues()
             .then(result => {
-                // Use the result to populate the combobox options
-                this.genreOptions = result.map(genre => {
-                    return { label: genre.label, value: genre.value };
-                });
+                this.genreOptions = result.map(genre => ({
+                    label: genre.label,
+                    value: genre.value
+                }));
             })
             .catch(error => {
                 console.error('Error fetching genre picklist values:', error);
@@ -27,15 +39,42 @@ export default class MovieFilter extends LightningElement {
 
     handleGenreChange(event) {
         this.selectedGenre = event.detail.value;
+        this.offsetSize = 0; // Reset offset when genre changes
     }
 
-    filterMovies() {
-        getMoviesByGenre({ genre: this.selectedGenre })
-            .then(result => {
-                this.filteredMovies = result;
-            })
-            .catch(error => {
-                console.error('Error retrieving movies:', error);
-            });
+    handleLimitChange(event) {
+        this.limitSize = parseInt(event.detail.value, 10); // Update limit size
+        this.limitSizeDisplay = event.detail.label;
+        this.offsetSize = 0; // Reset offset when limit changes
+    }
+
+    fetchMovies() {
+        if (!this.selectedGenre) {
+            return;
+        }
+
+        getMoviesByGenre({ 
+            genre: this.selectedGenre, 
+            limitSize: this.limitSize, 
+            offsetSize: this.offsetSize 
+        })
+        .then(result => {
+            this.filteredMovies = result;
+        })
+        .catch(error => {
+            console.error('Error retrieving movies:', error);
+        });
+    }
+
+    handleNext() {
+        this.offsetSize += this.limitSize; // Increment offset for the next set of records
+        this.fetchMovies();
+    }
+
+    handlePrevious() {
+        if (this.offsetSize > 0) {
+            this.offsetSize -= this.limitSize; // Decrement offset for the previous set of records
+            this.fetchMovies();
+        }
     }
 }

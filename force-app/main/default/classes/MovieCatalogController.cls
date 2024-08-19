@@ -17,7 +17,11 @@ public with sharing class MovieCatalogController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<Movie__c> getMoviesByGenre(String genre) {
-        return [SELECT Id, Title__c, RatingCalculated__c, Genre__c, Poster__c FROM Movie__c WHERE Genre__c = :genre];
+    public static List<Movie__c> getMoviesByGenre(String genre, Integer limitSize, Integer offsetSize) {
+        return [SELECT Id, Title__c, RatingCalculated__c, Genre__c, Poster__c 
+                FROM Movie__c 
+                WHERE Genre__c INCLUDES (:genre)
+                ORDER BY Title__c
+                LIMIT :limitSize OFFSET :offsetSize];
     }
 }

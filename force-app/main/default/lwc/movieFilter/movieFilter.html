@@ -1,8 +1,8 @@
 <template>
     <lightning-card title="Movie Catalog Filter" icon-name="standard:video">
         <div class="slds-p-around_medium">
-            <lightning-layout vertical-align="end">
-                <lightning-layout-item size="10">
+            <lightning-layout vertical-align="end" horizontal-align="spread" class="slds-m-bottom_x-small">
+                <lightning-layout-item size="9">
                     <!-- Genre select -->
                     <lightning-combobox
                         label="Select Genre"
@@ -14,14 +14,25 @@
                     </lightning-combobox>
                 </lightning-layout-item>
 
-                <lightning-layout-item margin="left-small">
-                     <!-- Filter button -->
-                    <lightning-button
-                        label="Filter Movies"
-                        variant="brand"
-                        class="slds-m-top_medium"
-                        onclick={filterMovies}>
-                    </lightning-button>
+                <lightning-layout-item>
+                    <lightning-layout vertical-align="end" horizontal-align="spread">
+                        <lightning-combobox
+                            label="Records per page"
+                            name="limit"
+                            placeholder="Choose number"
+                            options={limitOptions}
+                            value={limitSizeDisplay}
+                            onchange={handleLimitChange}>
+                        </lightning-combobox>
+
+                        <lightning-button
+                            label="Filter Movies"
+                            variant="brand"
+                            onclick={fetchMovies}
+                            class="slds-m-left_x-small"
+                            >
+                        </lightning-button>
+                    </lightning-layout>
                 </lightning-layout-item>
             </lightning-layout>
 
@@ -32,6 +43,7 @@
                     <template for:each={filteredMovies} for:item="movie">
                         <lightning-layout-item key={movie.Id} size="3">
                             <c-movie-card
+                                id={movie.Id}
                                 poster={movie.Poster__c}
                                 rating={movie.RatingCalculated__c}
                                 genre={movie.Genre__c}
@@ -40,8 +52,22 @@
                         </lightning-layout-item>
                     </template>
                 </lightning-layout>
-
             </template>
+
+            <!-- Pagination controls -->
+            <div class="slds-m-top_medium">
+                <lightning-button
+                    label="Previous"
+                    onclick={handlePrevious}
+                    disabled={isNull}>
+                </lightning-button>
+                <lightning-button
+                    label="Next"
+                    onclick={handleNext}
+                    class="slds-m-left_small">
+                </lightning-button>
+            </div>
+
         </div>
     </lightning-card>
 </template>

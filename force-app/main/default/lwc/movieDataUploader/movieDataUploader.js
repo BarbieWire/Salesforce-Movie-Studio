@@ -13,6 +13,10 @@ export default class MovieDataUploader extends LightningElement {
     filesUploaded;
     uploadedFileLength;
 
+    connectedCallback() {
+
+    }
+
     handleUploadFinished(event) {
         const uploadedFiles = event.detail.files;
         if (uploadedFiles.length > 0) {
