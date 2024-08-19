@@ -7,9 +7,9 @@ export default class MovieFilter extends LightningElement {
     @track filteredMovies = [];
     @track genreOptions = [];
     
-    @track limitSize = 10; // Default limit size
+    @track limitSize = 10;
     @track limitSizeDisplay = '10';
-    @track offsetSize = 0; // For pagination
+    @track offsetSize = 0;
 
     // Default limit options for the user to choose from
     @track limitOptions = [
@@ -39,13 +39,13 @@ export default class MovieFilter extends LightningElement {
 
     handleGenreChange(event) {
         this.selectedGenre = event.detail.value;
-        this.offsetSize = 0; // Reset offset when genre changes
+        this.offsetSize = 0;
     }
 
     handleLimitChange(event) {
-        this.limitSize = parseInt(event.detail.value, 10); // Update limit size
+        this.limitSize = parseInt(event.detail.value, 10);
         this.limitSizeDisplay = event.detail.label;
-        this.offsetSize = 0; // Reset offset when limit changes
+        this.offsetSize = 0;
     }
 
     fetchMovies() {
@@ -67,13 +67,13 @@ export default class MovieFilter extends LightningElement {
     }
 
     handleNext() {
-        this.offsetSize += this.limitSize; // Increment offset for the next set of records
+        this.offsetSize += this.limitSize;
         this.fetchMovies();
     }
 
     handlePrevious() {
         if (this.offsetSize > 0) {
-            this.offsetSize -= this.limitSize; // Decrement offset for the previous set of records
+            this.offsetSize -= this.limitSize;
             this.fetchMovies();
         }
     }
