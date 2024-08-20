@@ -55,19 +55,22 @@
             </template>
 
             <!-- Pagination controls -->
-            <div class="slds-m-top_medium">
-                <lightning-button
-                    label="Previous"
-                    onclick={handlePrevious}
-                    disabled={isNull}>
-                </lightning-button>
-                <lightning-button
-                    label="Next"
-                    onclick={handleNext}
-                    class="slds-m-left_small">
-                </lightning-button>
-            </div>
-
+            <template lwc:if={displayPagination}>
+                <div class="slds-m-top_medium">
+                    <lightning-button
+                        label="Previous"
+                        onclick={handlePrevious}
+                        disabled={isFirstPage}>
+                    </lightning-button>
+                    <lightning-button
+                        label="Next"
+                        onclick={handleNext}
+                        class="slds-m-left_small"
+                        disabled={isLastPage}>
+                    </lightning-button>
+                </div>
+            </template>
+            
         </div>
     </lightning-card>
 </template>

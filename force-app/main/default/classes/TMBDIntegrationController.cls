@@ -1,9 +1,7 @@
-public with sharing class TMDBIntegration {
+public with sharing class TMBDIntegrationController {
     public class MovieResponseFromClient {
         @AuraEnabled
         public List<Integer> genre_ids { get; set; }
-        @AuraEnabled
-        public List<String> genres { get; set; }
         @AuraEnabled
         public String overview { get; set; }
         @AuraEnabled
@@ -37,7 +35,12 @@ public with sharing class TMDBIntegration {
     }
 
     @AuraEnabled(cacheable=true)
-    public static Map<Integer, String> getOfficialGenres() {
+    public static String getTitleOfExistingRecord(Id recordId) {
+        Movie__c movie = [SELECT Title__c FROM Movie__c WHERE Id = :recordId LIMIT 1];
+        return movie.Title__c;
+    }
+
+    private static Map<Integer, String> getOfficialGenres() {
         Map<Integer, String> result = new Map<Integer, String>();
 
         tmdb requestHandler = new tmdb();
@@ -50,10 +53,29 @@ public with sharing class TMDBIntegration {
         return result;
     }
 
-    @AuraEnabled(cacheable=true)
-    public static String getMovieTitle(Id recordId) {
-        Movie__c movie = [SELECT Title__c FROM Movie__c WHERE Id = :recordId LIMIT 1];
-        return movie.Title__c;
+    private static String processMovieGenre(Map<Integer, String> genres, MovieResponseFromClient movieNewData) {
+        try {
+            // Convert genre IDs to genre names
+            List<String> genreNames = new List<String>();
+            if (movieNewData.genre_ids != null) {
+                for (Integer genreId : movieNewData.genre_ids) {
+                    if (genres.containsKey(genreId)) {
+                        String genreName = genres.get(genreId);
+                        if (genreName.split(' ').size() > 1) {
+                            genreName = genreName.replace(' ', '_');
+                        }
+                        genreNames.add(genreName);
+                    }
+                }
+            }
+            // Convert the List<String> genreNames to a single String for the multi-picklist
+            if (genreNames != null && !genreNames.isEmpty()) {
+                return String.join(genreNames, ';');
+            } 
+            return '';
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
 
     @AuraEnabled
@@ -65,12 +87,10 @@ public with sharing class TMDBIntegration {
         movie.Description__c = movieNewData.overview;
         movie.Rating__c = movieNewData.rating;
 
-        // Convert the List<String> genres to a single String for the multi-picklist
-        if (movieNewData.genres != null && !movieNewData.genres.isEmpty()) {
-            movie.Genre__c = String.join(movieNewData.genres, ';');
-        } else {
-            movie.Genre__c = null;
-        }
+        Map<Integer, String> genres = getOfficialGenres();
+        String processedGenres = processMovieGenre(genres, movieNewData);
+        System.debug('processedGenres: '+ processedGenres);
+        movie.Genre__c = processedGenres;
         
         update movie;
     }

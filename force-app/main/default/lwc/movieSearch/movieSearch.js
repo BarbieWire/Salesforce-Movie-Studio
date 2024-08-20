@@ -1,20 +1,19 @@
 import { LightningElement, track, api } from 'lwc';
 
-import searchMovie from '@salesforce/apex/TMDBIntegration.searchMovie';
-import getMovieTitle from '@salesforce/apex/TMDBIntegration.getMovieTitle';
-import getOfficialGenres from '@salesforce/apex/TMDBIntegration.getOfficialGenres';
-import updateMovieRecord from '@salesforce/apex/TMDBIntegration.updateMovieRecord';
+import searchMovie from '@salesforce/apex/TMBDIntegrationController.searchMovie';
+import getTitleOfExistingRecord from '@salesforce/apex/TMBDIntegrationController.getTitleOfExistingRecord';
+import updateMovieRecord from '@salesforce/apex/TMBDIntegrationController.updateMovieRecord';
 
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 
 export default class MovieSearch extends LightningElement {
     @api recordId;
-    @track movieTitle = '';
-    @track searchResults = [];
-    @track officialGenres = {};
     @track message = '';
 
+    @track movieTitle = '';
+
+    @track searchResults = [];
     @track selectedMovie = null;
 
     handleButtonClick(event) {
@@ -25,11 +24,8 @@ export default class MovieSearch extends LightningElement {
     
     saveMovieRecord() {
         if (this.selectedMovie && this.recordId) {
-            const genres = this.selectedMovie.genre_ids.map(id => this.officialGenres[id]);
-            const movie = {...this.selectedMovie, genres: genres};
-
             updateMovieRecord({
-                movieNewData: movie,
+                movieNewData: this.selectedMovie,
                 recordId: this.recordId
             })
                 .then(() => {
@@ -46,19 +42,10 @@ export default class MovieSearch extends LightningElement {
     }
 
     connectedCallback() {
-        getMovieTitle({ recordId: this.recordId })
+        getTitleOfExistingRecord({ recordId: this.recordId })
             .then(result => {
                 this.movieTitle = result;
             })
-
-        getOfficialGenres()
-            .then(result => {
-                this.officialGenres = result;
-            })
-            .catch(error => {
-                console.error('Error retrieving official genres:', error);
-                this.message = 'Error retrieving official genres from server.';
-            });
     }
 
     handleTitleChange(event) {

@@ -17,6 +17,15 @@ public with sharing class MovieCatalogController {
     }
 
     @AuraEnabled(cacheable=true)
+    public static Integer getMoviesCountByGenre(String genre) {
+        return [SELECT COUNT()
+                FROM Movie__c
+                WHERE Genre__c INCLUDES (:genre)];
+        
+    }
+
+
+    @AuraEnabled(cacheable=true)
     public static List<Movie__c> getMoviesByGenre(String genre, Integer limitSize, Integer offsetSize) {
         return [SELECT Id, Title__c, RatingCalculated__c, Genre__c, Poster__c 
                 FROM Movie__c 
