@@ -1,4 +1,8 @@
 public with sharing class MovieTriggerHandler extends TriggerHandler {
+    public static void processMovies(Set<Id> movieIds) {
+        Database.executeBatch(new MovieBatchProcessor(movieIds), 50);
+    }
+
     public override void afterInsert() {
         Set<Id> movieIds = new Set<Id>();
 
@@ -9,7 +13,7 @@ public with sharing class MovieTriggerHandler extends TriggerHandler {
         }
 
         if (!movieIds.isEmpty()) {
-            MovieServiceProvider.processMovies(movieIds);
+            processMovies(movieIds);
         }
     }
 
@@ -26,7 +30,7 @@ public with sharing class MovieTriggerHandler extends TriggerHandler {
         }
 
         if (!movieIds.isEmpty()) {
-            MovieServiceProvider.processMovies(movieIds);
+            processMovies(movieIds);
         }
     }
 }

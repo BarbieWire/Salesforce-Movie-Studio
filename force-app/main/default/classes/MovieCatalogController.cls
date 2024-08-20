@@ -18,19 +18,27 @@ public with sharing class MovieCatalogController {
 
     @AuraEnabled(cacheable=true)
     public static Integer getMoviesCountByGenre(String genre) {
-        return [SELECT COUNT()
-                FROM Movie__c
-                WHERE Genre__c INCLUDES (:genre)];
+        String query = 'SELECT COUNT() FROM Movie__c';
         
+        if (genre != 'all') {
+            query += ' WHERE Genre__c INCLUDES (:genre)'; 
+        }
+
+        Integer result = Database.countQuery(query);
+        return result;
     }
 
 
     @AuraEnabled(cacheable=true)
     public static List<Movie__c> getMoviesByGenre(String genre, Integer limitSize, Integer offsetSize) {
-        return [SELECT Id, Title__c, RatingCalculated__c, Genre__c, Poster__c 
-                FROM Movie__c 
-                WHERE Genre__c INCLUDES (:genre)
-                ORDER BY Title__c
-                LIMIT :limitSize OFFSET :offsetSize];
+        String query = 'SELECT Id, Title__c, RatingCalculated__c, Genre__c, Poster__c FROM Movie__c';
+        if (genre != 'all') {
+            query += ' WHERE Genre__c INCLUDES (:genre)';
+        }
+
+        query += ' ORDER BY Title__c';
+        query += ' LIMIT :limitSize OFFSET :offsetSize';
+
+        return Database.query(query);
     }
 }

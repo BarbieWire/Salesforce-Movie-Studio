@@ -4,7 +4,7 @@ import getMoviesCountByGenre from '@salesforce/apex/MovieCatalogController.getMo
 import getGenrePicklistValues from '@salesforce/apex/MovieCatalogController.getGenrePicklistValues';
 
 export default class MovieFilter extends LightningElement {
-    @track selectedGenre = '';
+    @track selectedGenre = 'all';
     @track filteredMovies = [];
     @track genreOptions = [];
         
@@ -23,10 +23,9 @@ export default class MovieFilter extends LightningElement {
     }
 
     get isLastPage() {
-        return this.offsetSize + this.filteredMovies.length >= this.totalMovieCount;
+        return this.offsetSize + this.limitSize >= this.totalMovieCount;
     }
     
-
     handleNext() {
         this.offsetSize += this.limitSize;
         this.fetchMovies();
@@ -54,7 +53,7 @@ export default class MovieFilter extends LightningElement {
         getMoviesCountByGenre({ genre: this.selectedGenre })
             .then(result => {
                 this.totalMovieCount = result;
-            })
+                })
             .catch(error => {
                 console.error('Error fetching total movie count:', error);
             });
@@ -63,10 +62,18 @@ export default class MovieFilter extends LightningElement {
     fetchGenreOptions() {
         getGenrePicklistValues()
             .then(result => {
-                this.genreOptions = result.map(genre => ({
+                const genreOptions = result.map(genre => ({
                     label: genre.label,
                     value: genre.value
                 }));
+
+                this.genreOptions = [
+                    {
+                        label: 'All Movies',
+                        value: 'all'
+                    },
+                    ...genreOptions
+                ]
             })
             .catch(error => {
                 console.error('Error fetching genre picklist values:', error);
@@ -81,15 +88,13 @@ export default class MovieFilter extends LightningElement {
 
     handleLimitChange(event) {
         this.limitSize = parseInt(event.detail.value, 10);
-        this.limitSizeDisplay = event.detail.label;
+        this.limitSizeDisplay = event.detail.value;
         this.offsetSize = 0;
     }
 
     fetchMovies() {
-        if (!this.selectedGenre) {
-            return;
-        }
-
+        if (!this.selectedGenre) return;
+        
         getMoviesByGenre({ 
             genre: this.selectedGenre, 
             limitSize: this.limitSize, 

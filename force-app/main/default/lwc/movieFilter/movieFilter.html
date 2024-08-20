@@ -1,6 +1,7 @@
 <template>
     <lightning-card title="Movie Catalog Filter" icon-name="standard:video">
         <div class="slds-p-around_medium">
+            
             <lightning-layout vertical-align="end" horizontal-align="spread" class="slds-m-bottom_x-small">
                 <lightning-layout-item size="9">
                     <!-- Genre select -->
@@ -15,6 +16,7 @@
                 </lightning-layout-item>
 
                 <lightning-layout-item>
+                    <!-- Record view limits -->
                     <lightning-layout vertical-align="end" horizontal-align="spread">
                         <lightning-combobox
                             label="Records per page"
@@ -25,6 +27,7 @@
                             onchange={handleLimitChange}>
                         </lightning-combobox>
 
+                        <!-- Submit button -->
                         <lightning-button
                             label="Filter Movies"
                             variant="brand"
@@ -38,7 +41,6 @@
 
             <!-- Display filtered -->
             <template if:true={filteredMovies}>
-
                 <lightning-layout vertical-align="center" multiple-rows="true">
                     <template for:each={filteredMovies} for:item="movie">
                         <lightning-layout-item key={movie.Id} size="3">
@@ -70,7 +72,7 @@
                     </lightning-button>
                 </div>
             </template>
-            
+
         </div>
     </lightning-card>
 </template>

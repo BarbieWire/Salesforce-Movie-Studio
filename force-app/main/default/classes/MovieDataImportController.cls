@@ -8,7 +8,7 @@ public class MovieDataImportController {
             Blob fileBody = fileVersion.VersionData;
             String jsonContent = fileBody.toString();
 
-            MovieServiceProvider movieProvider = new MovieServiceProvider();
+            MovieImportServiceProvider movieProvider = new MovieImportServiceProvider();
             Integer createdMovieCount = movieProvider.importJSON(jsonContent);
 
             result.recordsLoaded = createdMovieCount;

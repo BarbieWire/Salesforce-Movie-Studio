@@ -1,12 +1,5 @@
-public with sharing class MovieServiceProvider {
-    public static void processMovies(Set<Id> movieIds) {
-        Database.executeBatch(new MovieBatchProcessor(movieIds), 50);
-    }
-
+public with sharing class MovieImportServiceProvider {
     public Integer importJSON(String jsonString) {
-        // Disable triggers on import
-        TriggerControl.isTriggerDisabled = true;
-
         try {
             // Lists to store records to be inserted
             List<Movie__c> moviesToInsert = new List<Movie__c>();
