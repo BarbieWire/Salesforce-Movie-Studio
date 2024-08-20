@@ -1,18 +1,24 @@
-# Salesforce DX Project: Next Steps
-
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
-
-## How Do You Plan to Deploy Your Changes?
-
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
-
-## Configure Your Salesforce DX Project
-
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
-
-## Read All About It
-
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+We are a movie studio, that produces various films.
+To make a movie we need several things to happen:
+We need to allocate a budget for a film.
+We need a list of partners who provide various services:
+Cast: provides people that take part in the movie - actors, directors, 
+cinematographers, etc.
+We need to be able to estimate the costs of making a movie:
+Each team member charges a certain amount of money per hour and each movie has 
+certain budget allocated.
+We need to be able to estimate the time when the movie will be available in theaters:
+Preproduction, production, and postproduction times can be estimated based on the 
+script.
+Each team member has availability since they might be involved in other projects.
+Script provides data of the number of actors needed for a movie, filming locations and 
+production times.
+Script already exists before film budget and timeline planning.
+It is stored in separate object in Salesforce with following properties:
+Period needed for production (like 20 days)
+Number of actors needed
+Locations 
+We want to track financial information about by the movie – revenue, budget, actor costs, 
+that we receive in CSV format, and it needs to be updated on movie records.
+We would like to have a catalog of movies and be able to search for movies by genre to 
+make our work more efficient
