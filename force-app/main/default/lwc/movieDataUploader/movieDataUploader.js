@@ -1,5 +1,5 @@
 import { LightningElement, track, api } from 'lwc';
-import processMovieData from '@salesforce/apex/MovieDataProcessor.processMovieData';
+import processMovieData from '@salesforce/apex/MovieDataImportController.processMovieData';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class MovieDataUploader extends LightningElement {
@@ -12,10 +12,6 @@ export default class MovieDataUploader extends LightningElement {
 
     filesUploaded;
     uploadedFileLength;
-
-    connectedCallback() {
-
-    }
 
     handleUploadFinished(event) {
         const uploadedFiles = event.detail.files;

@@ -1,0 +1,42 @@
+<template>
+    <lightning-card title="The MovieDB Matcher" icon-name="standard:video">
+        <div class="slds-p-around_medium">
+            <lightning-layout vertical-align="end" horizontal-align="spread" class="slds-m-bottom_x-small">
+                <lightning-layout-item size="9">
+                    <lightning-input
+                        label="Movie Title"
+                        value={movieTitle}
+                        onchange={handleTitleChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+
+                <lightning-layout-item>
+                    <lightning-button
+                        label="Search"
+                        variant="brand"
+                        class="slds-m-top_medium"
+                        onclick={searchMovies}>
+                    </lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <lightning-accordion allow-multiple-sections-open>
+                <template for:each={searchResults} for:item="movie">
+                    <lightning-accordion-section label={movie.title} key={movie.record_id}>
+                        <div class="slds-p-around_small">
+                            <p><strong>Rating:</strong> {movie.rating}</p>
+                            <p><strong>Overview:</strong> {movie.overview}</p>
+                            <!-- <p>{movie.record_id}</p> -->
+                            <!-- <p>{movie.genre_ids}</p> -->
+                            <lightning-button label="Select Movie" data-id={movie.record_id} onclick={handleButtonClick}></lightning-button>
+                        </div>
+                    </lightning-accordion-section>
+                </template>
+            </lightning-accordion>
+
+            <template if:true={message}>
+                <div class="slds-text-color_error slds-m-top_medium">{message}</div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -52,7 +52,6 @@ public with sharing class tmdb {
         request = authenticateRequest(request);
         Http http = new Http();
         HttpResponse response = http.send(request);
-        System.debug(response.getBody());
 
         tmdbSearchMovieResponse result = (tmdbSearchMovieResponse) JSON.deserialize(response.getBody(), tmdbSearchMovieResponse.class);
         return result;

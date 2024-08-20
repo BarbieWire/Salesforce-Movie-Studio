@@ -1,9 +1,7 @@
 public with sharing class tmdbSearchMovieResponse {
-    public String overview;
-    public String original_title;
-    public Integer revenue;
-    public Decimal vote_average;
-    public String poster_path;
-    public Integer budget;
+    public Integer page { get; set; }
+    public List<tmdbSearchMovieResult> results { get; set; }
+    public Integer total_pages { get; set; }
+    public Integer total_results { get; set; }
 }
 

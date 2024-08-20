@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Cast__c.Actor__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Cast__c.ActualCosts__c</field>
         <readable>true</readable>
@@ -27,23 +22,9 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Cast__c.Movie__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Cast__c.PricePerHour__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>CastEdit</label>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>Cast__c</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
 </PermissionSet>

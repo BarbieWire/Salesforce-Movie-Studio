@@ -1,4 +1,5 @@
 public with sharing class tmdMovieDetailResponse {
+    public Integer id;
     public String overview;
     public String original_title;
     public Integer revenue;

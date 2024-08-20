@@ -6,7 +6,7 @@ export default class MovieFilter extends LightningElement {
     @track selectedGenre = '';
     @track filteredMovies = [];
     @track genreOptions = [];
-    
+        
     @track limitSize = 10;
     @track limitSizeDisplay = '10';
     @track offsetSize = 0;

@@ -4,15 +4,13 @@
             <div class="slds-media slds-media_center slds-has-flexi-truncate">
                 <div class="slds-media__body">
                     <h2 class="slds-card__header-title">
-                        <a href="#" class="slds-card__header-link slds-truncate" title={title}>
-                            <span>{title}</span>
-                        </a>
+                        <span class="slds-card__header-link slds-truncate">{title}</span>
                     </h2>
                     <p class="slds-text-body_small">Rating: {rating}</p>
-                    <p class="slds-text-body_small genre-text">
+                    <p class="slds-text-body_small slds-truncate">
                         Genre: {genre}
                         <template if:true={isHorror}>
-                            <span class="age-restriction"> 18+ </span>
+                            <p class="age-restriction"> 18+ </p>
                         </template>
                     </p>
                 </div>
@@ -23,7 +21,7 @@
             </div>
         </div>
         <footer class="slds-card__footer">
-            <img src={poster} alt={title}/>
+            <img src={poster} alt={title} class="image-restrict"/>
         </footer>
     </article>
 </template>

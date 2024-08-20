@@ -1,4 +1,4 @@
-public class MovieDataProcessor {
+public class MovieDataImportController {
     @AuraEnabled
     public static Result processMovieData(Id fileId) {
         Result result = new Result();

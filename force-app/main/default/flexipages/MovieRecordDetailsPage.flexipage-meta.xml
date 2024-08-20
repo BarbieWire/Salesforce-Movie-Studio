@@ -672,6 +672,18 @@
                 <identifier>flowruntime_interview</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>movieSearch</componentName>
+                <identifier>c_movieSearch</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.TMDBId__c}</leftValue>
+                        <operator>EQUAL</operator>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
