@@ -29,8 +29,8 @@ public class MovieBatchProcessor implements Database.Batchable<SObject>, Databas
                     movie.Title__c = result.original_title;
                     movie.Revenue__c = result.revenue;
                     movie.Rating__c = result.vote_average;
-    
-                    if (settings != null && settings.TMDBBasePosterURL__c != null) {
+
+                    if (settings != null && settings.TMDBBasePosterURL__c != null && result.poster_path != null) {
                         String baseUrl = settings.TMDBBasePosterURL__c;
                         movie.Poster__c = baseUrl + result.poster_path;
                     }

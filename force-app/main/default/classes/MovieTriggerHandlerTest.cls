@@ -1,6 +1,5 @@
 @isTest
 public class MovieTriggerHandlerTest {
-
     // Helper method to create movie records
     private static List<Movie__c> createMovieRecords(Integer numRecords, String tmdbIdPrefix) {
         List<Movie__c> movieList = new List<Movie__c>();

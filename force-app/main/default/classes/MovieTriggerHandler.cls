@@ -1,6 +1,7 @@
 public with sharing class MovieTriggerHandler extends TriggerHandler {
     public static void processMovies(Set<Id> movieIds) {
         Database.executeBatch(new MovieBatchProcessor(movieIds), 50);
+        Database.executeBatch(new ReviewBatchProcessor(movieIds), 50);
     }
 
     public override void afterInsert() {

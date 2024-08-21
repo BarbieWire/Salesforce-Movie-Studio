@@ -74,4 +74,20 @@ public with sharing class tmdb {
         result.request_success = response.getStatusCode();
         return result;
     }
+
+    public tmdMovieReviewsResponse getReviewsByTMDBId(String movieId) {
+        String resourceName = '/movie/' + movieId + '/reviews';
+        String endpoint = buildResourceUrl(resourceName);
+        HttpRequest request = new HttpRequest();
+        request.setMethod('GET');
+        request.setEndpoint(endpoint);
+        request = authenticateRequest(request);
+
+        Http http = new Http();
+        HttpResponse response = http.send(request);
+
+        tmdMovieReviewsResponse result = (tmdMovieReviewsResponse) JSON.deserialize(response.getBody(), tmdMovieReviewsResponse.class);
+
+        return result;
+    }
 }
