@@ -1,0 +1,37 @@
+<template>
+    <template lwc:if={reviews}>
+        <template for:each={paginatedReviews} for:item="review">
+            <lightning-card title={review.Author__c} key={review.Id} class="slds-m-bottom_xx-small">
+                <lightning-layout>
+                    <lightning-layout-item padding="around-small">
+                        <template lwc:if={review.Avatar__c}>
+                            <img src={review.Avatar__c} alt="author" class="author-image">
+                        </template>
+                        <template lwc:else>
+                            <img src={defaultImageURL} alt="author" class="author-image">
+                        </template>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item padding="around-small">
+                        <template lwc:if={review.Rating__c}>
+                            <b>Rating: {review.Rating__c}</b>
+                        </template>
+                        <template lwc:else>
+                            <b>No rating provided</b>
+                        </template>
+                        <br>
+                        <lightning-formatted-rich-text value={review.trimmedComment}></lightning-formatted-rich-text>
+                        <br>
+                        <lightning-button variant="base" label='See More' onclick={handleTitleClick} data-id={review.Id}></lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-card>
+        </template>
+
+        <!-- Pagination Controls -->
+        <div class="slds-m-top_medium">
+            <lightning-button variant="neutral" label="Previous" onclick={handlePreviousPage} disabled={hasPreviousPage}></lightning-button>
+            <lightning-button variant="neutral" label="Next" onclick={handleNextPage} disabled={hasNextPage}></lightning-button>
+        </div>
+    </template>
+</template>

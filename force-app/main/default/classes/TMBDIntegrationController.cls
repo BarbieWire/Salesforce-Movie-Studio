@@ -89,9 +89,20 @@ public with sharing class TMBDIntegrationController {
 
         Map<Integer, String> genres = getOfficialGenres();
         String processedGenres = processMovieGenre(genres, movieNewData);
-        System.debug('processedGenres: '+ processedGenres);
         movie.Genre__c = processedGenres;
         
         update movie;
+    }
+
+    @AuraEnabled
+    public static List<Review__c> getReviewsByMovieId(Id movieId) {
+        List<Review__c> reviews = [
+            SELECT Id, Author__c, Comment__c, Rating__c, CreatedDate, Avatar__c
+            FROM Review__c 
+            WHERE Movie__c = :movieId
+            ORDER BY CreatedDate DESC
+        ];
+
+        return reviews;
     }
 }
