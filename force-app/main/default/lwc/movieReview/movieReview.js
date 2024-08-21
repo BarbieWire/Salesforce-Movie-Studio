@@ -6,6 +6,7 @@ import { NavigationMixin } from 'lightning/navigation';
 export default class MovieReviews extends NavigationMixin(LightningElement) {
     @api recordId;
     @track reviews;
+    @track reviewsExist = false;
     @track error;
 
     pageSize = 3; 
@@ -79,7 +80,7 @@ export default class MovieReviews extends NavigationMixin(LightningElement) {
 
         getReviewsByMovieId({ movieId: this.recordId })
             .then(result => {
-                console.log('Data:', result);
+                if (result.length) this.reviewsExist = true;
                 this.reviews = result;
                 this.error = undefined;
             })
